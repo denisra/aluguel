@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html ng-app="aluguel" lang="en">
+<head>
+  <title>Controle de Alugueis</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <base href="/">
+
+  <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+   <link rel="stylesheet" href="./bower_components/angular-material/angular-material.css"/>
+   <link rel="stylesheet" href="assets/app.css"/>
+   <link rel="stylesheet" href="directive/mdTable/mdTable.css"/>
+</head>
+
+<body layout="column" ng-controller="appController">
+
+  <!-- Livereload script for development only (stripped during dist build) -->
+  <script src="http://localhost:35729/livereload.js" data-concat="false"></script>
+
+  <!-- JS from Bower Components -->
+  <script src="bower_components/less.js/dist/less-1.6.2.js" data-concat="false"></script>
+  <script src="bower_components/jquery/jquery.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="bower_components/underscore/underscore.js"></script>
+  <script src="bower_components/moment/moment.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="bower_components/angular-ui-utils/ui-utils.js"></script>
+  <script src="bower_components/angular-material/angular-material.js"></script>
+  <script src="bower_components/angular-aria/angular-aria.js"></script>
+  <script src="bower_components/angular-material-icons/angular-material-icons.js"></script>
+  <script src="assets/colResizable-1.5.min.js"></script>
+  <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+  <script src="https://cdn.firebase.com/libs/angularfire/1.1.2/angularfire.min.js"></script>
+  <script src="bower_components/angular-i18n/angular-locale_pt-br.js"></script>
+  <!-- Add New Bower Component JS Above -->
+
+
+  <md-content layout="column" flex id="content" layout-padding layout-fill>
+    <header>
+      <md-toolbar layout="row" class="main-toolbar md-toolbar-tools">
+        <md-button class="menu" ng-click="toggleMenu()" aria-label="Show User List">
+          <ng-md-icon icon="menu" size="48" style="fill: white" layout-align="start center"></ng-md-icon>
+        </md-button>
+        <div layout="row" flex="flex" class="fill-height">
+          <div ng-hide="toggleSearch" class="md-toolbar-item md-breadcrumb"><span>Controle de Alugueis</span></div><span flex="flex" ng-hide="toggleSearch"></span>
+          <md-input-container class="md-input-container md-default-theme" flex="flex" style="padding-left:88px;" ng-show="toggleSearch">
+            <input type="search" ng-model="search" focus-me="toggleSearch"/>
+          </md-input-container>
+          <div layout="row" class="md-toolbar-item md-tools" ng-show="$root.showSearch"><a href="#" ng-click="toggleSearch = !toggleSearch" class="md-button md-default-theme">
+            <ng-md-icon icon="search" size="26" style="fill: white" layout-align="start end"></ng-md-icon>
+          </a></div>
+        </div>
+      </md-toolbar>
+    </header>
+
+
+  <!-- Main App JS -->
+  <script src="app.js"></script>
+  <script src="appController.js"></script>
+  <script src="contabil/contabil.js"></script>
+  <script src="contabil/partial/list/contabilController.js"></script>
+  <script src="directive/mdTable/mdTable.js"></script>
+  <script src="directive/mdColresize.js"></script>
+  <script src="contabil/partial/create/create.js"></script>
+  <script src="contabil/partial/create/createController.js"></script>
+  <!-- Add New Component JS Above -->
+
+  <main class="container" flex>
+    <div layout="column">
+      <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" flex>
+        <md-toolbar class="md-theme-light">
+          <h1 class="md-toolbar-tools">Menu</h1>
+        </md-toolbar>
+        <md-content ng-controller="appController" layout-padding layout="column">
+          <md-button ui-sref="contabil" ng-click="close()" class="md-raised" flex>
+            <ng-md-icon icon="attach_money"></ng-md-icon>
+            Lista de contratos
+          </md-button>     
+          <md-button ui-sref="create" ng-click="close()" class="md-raised" flex>
+            <ng-md-icon icon="create"></ng-md-icon>
+            Criar novo contrato            
+          </md-button>
+          <md-button ng-click="close()" class="md-raised md-warn" flex>
+            <ng-md-icon icon="exit_to_app"></ng-md-icon>          
+            Fechar
+          </md-button>
+        </md-content>
+      </md-sidenav>
+    </div>
+    <div class="row">
+      <div ui-view>
+      </div>
+    </div>
+  </main>
+</md-content>
+
+</body>
+</html>

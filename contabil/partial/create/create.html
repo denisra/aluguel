@@ -1,0 +1,54 @@
+<div ng-controller="CreateCtrl" layout="column" layout-align="center center">
+
+
+	<div class="create-form">
+		<md-toolbar class="md-toolbar-tools md-primary md-hue-3" layout-align="center center" layout="row" flex>
+			<p class="md-body">Criar novo registro:</p>
+		</md-toolbar>
+		<md-whiteframe class="md-whiteframe-z3" layout="row" layout-margin layout-padding layout-align="center center" layout-fill style="min-height: 300px;">
+			<md-content layout-padding layout="row" layout-sm="column" layout-align="center center">
+		    <form name="registroForm">
+		      <div layout layout-sm="column">
+		        <md-input-container>
+		            <label>Nome</label>
+		            <input ng-model="record.name">
+		          </md-input-container>
+		        <md-input-container>
+		            <label>Valor total</label>
+		            <input type="number" ng-model="record.total_due">
+		        </md-input-container>
+		        <md-input-container>
+		            <label>Total recebido</label>
+		            <input type="number" ng-model="record.total_received">
+		        </md-input-container>	          
+		      </div>
+					<div layout layout-sm="column">
+		        <md-input-container flex>
+		          <label>Data de chegada</label>
+		          <input type="date" ng-model="record.start_date">
+		        </md-input-container>
+		        <md-input-container flex>
+		          <label>Data de saida</label>
+		          <input type="date" ng-model="record.end_date">
+		        </md-input-container>
+		        <md-input-container flex>
+		          <label>Data de vencimento</label>
+		          <input type="date" ng-model="record.due_date">
+		        </md-input-container>
+		      </div>
+			    <section layout="row" layout-sm="column" layout-align="center center" layout-padding layout-margin>
+			      <md-button class="md-raised md-primary" ng-click="submitForm(record)">Salvar</md-button>
+			      <md-button class="md-raised">Cancelar</md-button>
+			      <md-button class="md-raised md-warn" ng-click="record = null">Limpar</md-button>
+			    </section>	        
+	    	</form>
+		  </md-content>
+		</md-whiteframe>
+	</div>
+</div>
+
+	<p class="text-center">    
+    <a href="#" class="btn btn-primary" ng-click="reset()">Reset</a>
+  </p>
+
+</div>

@@ -1,0 +1,20 @@
+<div class="main-fab">
+  <md-button ui-sref="create"><ng-md-icon icon="add_circle" size="56" style="fill: #0277bd"></ng-md-icon></md-button>
+</div>
+<div class="main-contabil" layout="row" flex ng-controller="ContabilCtrl">
+	<md-whiteframe class="md-whiteframe-z2" layout-fill layout-padding>
+		<h2> Contabil: </h2>
+			<md-content class="contabil-tb" layout="column" flex="flex" ng-click="toggleSearch=false">
+      	<md-table headers="headers" content="mycontent" sortable="sortable" filters="search" custom-class="custom" thumbs="thumbs" count="count" delete-record="deleteRecord"></md-table>
+    	</md-content>
+	</md-whiteframe>
+</div>
+
+<footer>
+  <md-toolbar class="md-medium-tall">
+    <div layout="column" flex layout-align="center start" layout-padding ng-controller="ContabilCtrl">
+      <p>Total Recebido: R$ {{total_amounts.total_received}} </p>
+      <p>Total a Receber: R$ {{total_amounts.total_due}} </p>
+    </div>
+  </md-toolbar>
+</footer>

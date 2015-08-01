@@ -1,0 +1,37 @@
+.main-toolbar {
+	margin-bottom: 45px;
+}
+
+.menu {
+  background-color: transparent;
+  border: none;
+  height: 48px;
+  margin: 16px;
+  width: 46px;
+}
+.md-sidenav-left {
+	top: 80px;
+}
+.main-contabil {
+  min-height: calc(100vh - 176px);  
+}
+.contabil-tb {
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+.contabil-tb.md-default-theme {
+	padding: 12px;
+}
+.md-input-container.md-default-theme .md-input {
+  color: white;
+  border-color: white;
+  margin-top: 24px;
+
+}
+.create-form {
+	width:60%;
+	min-height:300px;
+}
+.create-form p.md-body{
+	color: white;
+}

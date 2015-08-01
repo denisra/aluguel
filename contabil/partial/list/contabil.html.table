@@ -1,0 +1,36 @@
+<div class="main-contabil" layout="row" flex ng-controller="ContabilCtrl">
+	<md-whiteframe class="md-whiteframe-z2" layout-fill layout-padding>
+		<h2> Contabil </h2>
+		<md-content>
+			<table id="table" layout-fill layout-padding>				
+				<thead align="left">
+	        <tr>
+	          <th>Nome</th>
+	          <th>Data de chegada</th>
+	          <th>Data de saida</th>
+	          <th>Valor total</th>
+	          <th>Data de vencimento</th>		          
+	        </tr>
+	      </thead>
+	      <tbody>
+					<tr ng-repeat="item in items">
+						<td data-title="Nome"> {{item.name}}</td>
+						<td data-title="Data de chegada"> {{item.start_date}}</td>
+						<td data-title="Data de saida"> {{item.end_date}}</td>
+						<td data-title="Valor total"> R$ {{item.total_amount}}</td>
+						<td data-title="Data de vencimento"> {{item.due_date}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</md-content>
+	</md-whiteframe>
+</div>
+
+<footer>
+  <md-toolbar class="md-medium-tall">
+    <div layout="column" flex layout-align="center start" layout-padding>
+      <p>Total Recebido: R$ </p>
+      <p>Total a Receber: R$ </p>
+    </div>
+  </md-toolbar>
+</footer>
