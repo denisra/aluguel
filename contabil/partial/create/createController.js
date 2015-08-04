@@ -1,5 +1,5 @@
 angular.module('create')
-.controller('CreateCtrl', ['$scope', '$firebaseObject', '$mdDialog', '$rootScope', '$state', function($scope, $firebaseObject, $mdDialog, $rootScope, $state){
+.controller('CreateCtrl', ['$scope', '$firebaseObject', '$mdDialog', '$rootScope', '$state', '$mdToast', function($scope, $firebaseObject, $mdDialog, $rootScope, $state, $mdToast){
 	//$scope.test = 'Test';
 	
 	$rootScope.showSearch = ($state.current.name === 'contabil');
@@ -14,14 +14,21 @@ angular.module('create')
 	  } else {
 	    console.log('Synchronization succeeded');
 
-	    $mdDialog.show(
-	      $mdDialog.alert()
-	        .parent(angular.element(document.body))
-	        .title('This is an alert title')
-	        .content('You can specify some description text in here.')
-	        .ariaLabel('Alert Dialog Demo')
-	        .ok('Got it!')
-	    );
+    $mdToast.show(
+      $mdToast.simple()
+        .content('Contato criado com sucesso!')
+        .position('top right')
+        .hideDelay(3000)
+        //.parent(angular.element('.create-form .md-whiteframe-z3'))
+    );	    
+	    // $mdDialog.show(
+	    //   $mdDialog.alert()
+	    //     .parent(angular.element(document.body))
+	    //     .title('Sucesso')
+	    //     .content('Contato criado com sucesso!')
+	    //     .ariaLabel('Alert Dialog')
+	    //     .ok('OK')
+	    // );
 	    $scope.record = null;
 	  }
 	};

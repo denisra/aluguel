@@ -11,10 +11,27 @@
 
       	<td ng-repeat-start="h in headers" ng-class="customClass[h.field]" ng-if="h.field.indexOf('date') > 0" class="md-table-content">{{c[h.field] | date: 'dd/MM/yyyy';}}</td>
       	<td ng-repeat-end ng-class="customClass[h.field]" ng-if="h.field.indexOf('date') < 0" class="md-table-content">{{(h.field.indexOf('name') > 0) ? $filter('search')(c[h.field]) : (c[h.field]);}}</td>
-	      <td class="md-table-td-more">
-	        <md-button aria-label="Info" ng-click="deleteRecord(c)">
-	        	<ng-md-icon icon="more_vert"></ng-md-icon>
-	        </md-button>
+	      <td>
+			    <div class="lock-size" layout="row" layout-align="center center">
+			      <md-fab-speed-dial md-direction="left">
+			        <md-fab-trigger>
+			          <md-button aria-label="menu" class="md-fab md-warn">
+			            <ng-md-icon class="svg-class" icon="menu"></ng-md-icon>
+			          </md-button>
+			        </md-fab-trigger>
+			        <md-fab-actions>
+			          <md-button aria-label="delete" class="md-fab md-raised md-mini">
+			            <ng-md-icon class="svg-class" icon="delete" ng-click="deleteRecord(c)"></ng-md-icon>
+			          </md-button>
+			          <md-button aria-label="edit" class="md-fab md-raised md-mini">
+			          	<ng-md-icon class="svg-class" icon="edit"></ng-md-icon>
+			          </md-button>
+			          <md-button aria-label="Google hangout" class="md-fab md-raised md-mini">
+			            <ng-md-icon class="svg-class" icon="edit"></ng-md-icon>
+			          </md-button>
+			        </md-fab-actions>
+			      </md-fab-speed-dial>
+			    </div>
 	      </td>
 
     </tr>

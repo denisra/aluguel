@@ -1,4 +1,5 @@
-angular.module('contabil').controller('ContabilCtrl', ['$scope', '$firebaseObject', '$firebaseArray', '$state', '$rootScope', function($scope, $firebaseObject, $firebaseArray, $state, $rootScope){
+angular.module('contabil').controller('ContabilCtrl', ['$scope', '$firebaseObject', '$firebaseArray', '$state', '$rootScope', '$mdDialog', 
+	function($scope, $firebaseObject, $firebaseArray, $state, $rootScope, $mdDialog){
 
 	//var tmp;
 	$scope.mycontent = [];
@@ -7,7 +8,20 @@ angular.module('contabil').controller('ContabilCtrl', ['$scope', '$firebaseObjec
 	console.log('contabil state: ', $state.current.name);
 
 	var ref = new Firebase("https://alugueis.firebaseio.com/contabil");
-	var data = $firebaseArray(ref);
+
+
+	function loadData () {
+		var data = $firebaseArray(ref);
+		data.$loaded()
+		.then (function (data) {
+			console.log('data loaded: ', data);
+			$scope.mycontent = data;
+			//console.log('scope data: ', $scope.mycontent);
+			$scope.total_amounts = get_totals(data);
+		});
+	}
+
+	
 
 	function get_totals(data) {
 		var tmp = [];
@@ -23,16 +37,6 @@ angular.module('contabil').controller('ContabilCtrl', ['$scope', '$firebaseObjec
 		var total = {total_due: t_due, total_received: t_received};
 		return total;
 	}
-
-	
-	data.$loaded()
-		.then (function (data) {
-			console.log('data loaded: ', data);
-			$scope.mycontent = data;
-			//console.log('scope data: ', $scope.mycontent);
-			$scope.total_amounts = get_totals(data);
-	});
-
 
 
 	$scope.toggleSearch = false;
@@ -87,17 +91,39 @@ angular.module('contabil').controller('ContabilCtrl', ['$scope', '$firebaseObjec
 	  }
 	};
 
-	$scope.deleteRecord = function (record) {
+	function delRecord (record) {
 		console.log('delete record: ', record.$id);
 		 ref.child(record.$id).remove(function(error){
 	     if (error) {
 	     	console.log("Error:", error);
 	  	} else {
 	     	console.log("Removed successfully!");
+	     	loadData();
 	   	}
 	   });
+	}
+
+
+
+	$scope.deleteRecord = function (record) {
+	  $mdDialog.show(
+	    $mdDialog.confirm()
+	      .parent(angular.element(document.body))
+	      .title('Confirmar')
+	      .content('Deseja realmente deletar o contato de ' + record.name + ' ?')
+	      .ariaLabel('Confirm Dialog')
+	      .ok('Sim')
+	      .cancel('Cancelar')
+	  ).then( function () {
+	  	console.log('Confirmado! ');
+	  	delRecord (record);
+	  }, function () {
+	  	console.log('Cancelado!');
+	  });
 	};
 
+
+	loadData();
 
 
  //  ref.on("value", function(snap) {
