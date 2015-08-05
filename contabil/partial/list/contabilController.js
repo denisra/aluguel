@@ -18,6 +18,7 @@ angular.module('contabil').controller('ContabilCtrl', ['$scope', '$firebaseObjec
 			$scope.mycontent = data;
 			//console.log('scope data: ', $scope.mycontent);
 			$scope.total_amounts = get_totals(data);
+			console.log('total amounts: ', $scope.total_amounts);
 		});
 	}
 
@@ -43,7 +44,7 @@ angular.module('contabil').controller('ContabilCtrl', ['$scope', '$firebaseObjec
 	$scope.custom = {name: 'bold', start_date:'grey', end_date:'grey', due_date:'grey', total_due:'grey', total_received: 'grey'};
   $scope.sortable = ['name', 'start_date', 'end_date', 'due_date', 'total_due', 'total_received'];
   $scope.thumbs = '';
-  $scope.count = 3;
+  $scope.count = 5;
   $scope.filters = 'search';
 
 

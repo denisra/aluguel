@@ -6,36 +6,110 @@
 			<p class="md-body">Criar novo registro:</p>
 		</md-toolbar>
 		<md-whiteframe class="md-whiteframe-z3" layout="row" layout-margin layout-padding layout-align="center center" layout-fill style="min-height: 300px;">
-			<md-content layout-padding layout="row" layout-sm="column" layout-align="center center">
-		    <form name="registroForm">
-		      <div layout layout-sm="column">
-		        <md-input-container>
-		            <label>Nome</label>
-		            <input ng-model="record.name" required>
-		          </md-input-container>
-		        <md-input-container>
-		            <label>Valor total</label>
-		            <input type="number" ng-model="record.total_due">
-		        </md-input-container>
-		        <md-input-container>
-		            <label>Total recebido</label>
-		            <input type="number" ng-model="record.total_received">
-		        </md-input-container>	          
-		      </div>
-					<div layout layout-sm="column">
-		        <md-input-container flex>
-		          <label>Data de chegada</label>
-		          <input type="date" ng-model="record.start_date" required>
-		        </md-input-container>
-		        <md-input-container flex>
-		          <label>Data de saida</label>
-		          <input type="date" ng-model="record.end_date" required>
-		        </md-input-container>
-		        <md-input-container flex>
-		          <label>Data de vencimento</label>
-		          <input type="date" ng-model="record.due_date">
-		        </md-input-container>
-		      </div>
+			<md-content layout-padding layout="column" flex>
+		    <form name="registroForm">	      	
+		      <md-card flex layout-margin layout-padding>
+						<div layout="column" layout-padding>
+		      		<md-subheader class="md-primary" layout-margin>Dados pessoais</md-subheader>
+		      	</div>
+		      	<div layout="row" layout-sm="column" flex layout-padding>			      
+				      <div layout="column" flex-gt-md="65">
+				        <md-input-container flex>
+				            <label>Nome</label>
+				            <input type="text" ng-model="record.name" required>
+				        </md-input-container>
+				        <md-input-container flex>
+				            <label>Nacionalidade</label>
+				            <input type="text" ng-model="record.nationality">
+				        </md-input-container>
+				      </div>
+				      <div layout="column" flex-gt-md="15">			        
+				        <md-input-container flex>
+				            <label>CPF</label>
+				            <input type="number" ng-model="record.cpf">
+				        </md-input-container>
+				        <md-input-container flex>
+				            <label>RG</label>
+				            <input type="number" ng-model="record.rg">
+				        </md-input-container>
+				      </div>
+			        <div layout="column" flex-gt-md="20">
+				        <md-input-container flex>
+				            <label>Profissao</label>
+				            <input type="text" ng-model="record.profissao">
+				        </md-input-container>	
+			          <md-select name="estadocivil" placeholder="Estado Civil" ng-model="record.estadocivil" required>
+					        <md-option value="Casado">Casado</md-option>
+					        <md-option value="Solteiro">Solteiro</md-option>
+					        <md-option value="Divorciado">Divorciado</md-option>
+					      </md-select>
+				      </div>
+				    </div>		      
+			    </md-card>
+				    <md-card layout-marging flex layout-padding>
+							<div layout="column" layout-padding>
+			      		<md-subheader class="md-primary" layout-margin>Informacoes de contato</md-subheader>
+			      	</div>
+				      <div layout="row" layout-sm="column" layout-padding flex>						        										
+				        <md-input-container flex-gt-md="40">
+				            <label>Endereco</label>
+				            <input type="text" ng-model="record.address">
+				        </md-input-container>
+				        <md-input-container flex-gt-md="15">
+				            <label>Cidade</label>
+				            <input type="text" ng-model="record.city">
+				        </md-input-container>			
+				        <md-input-container flex-gt-md="15">
+				            <label>Estado</label>
+				            <input type="text" ng-model="record.state">
+				        </md-input-container>
+				        <md-input-container flex-gt-md="15">
+				            <label>Email</label>
+				            <input type="email" ng-model="record.email">
+				        </md-input-container>
+				        <md-input-container flex-gt-md="15">
+				            <label>Telefone</label>
+				            <input type="text" ng-model="record.tel">
+				        </md-input-container>
+				      </div>			        				        
+		        </md-card>
+				    <md-card layout-marging flex layout-padding>
+							<div layout="column" layout-padding>
+			      		<md-subheader class="md-primary" layout-margin>Informacoes do aluguel</md-subheader>
+			      	</div>
+				      <div layout="row" layout-sm="column" layout-padding flex>	
+				      	<div layout="column" layout-margin layout-padding flex-gt-md="15">		      	        
+					        <md-input-container flex>
+					            <label>Valor total</label>
+					            <input type="number" ng-model="record.total_due">
+					        </md-input-container>
+					        <md-input-container flex>
+					            <label>Total recebido</label>
+					            <input type="number" ng-model="record.total_received">
+					        </md-input-container>
+					      </div>
+					      <div layout="column" layout-margin layout-padding flex-gt-md="15">		          
+					        <md-input-container flex>
+					          <label>Data de chegada</label>
+					          <input type="date" ng-model="record.start_date" required>
+					        </md-input-container>
+					        <md-input-container flex>
+					          <label>Data de saida</label>
+					          <input type="date" ng-model="record.end_date" required>
+					        </md-input-container>
+					        <md-input-container flex>
+					          <label>Data de vencimento</label>
+					          <input type="date" ng-model="record.due_date">
+					        </md-input-container>
+					      </div>
+					      <div layout="column" layout-margin layout-padding flex-gt-md="60">
+					        <md-input-container flex>
+					          <label>Informacoes adicionais</label>
+					          <textarea ng-model="record.extra_info" columns="1" md-maxlength="2000"></textarea>
+					        </md-input-container>					      
+					      </div>
+				      </div>				     
+				    </md-card>
 			    <section layout="row" layout-sm="column" layout-align="center center" layout-padding layout-margin>
 			      <md-button class="md-raised md-primary" ng-click="submitForm(record)">Salvar</md-button>
 			      <md-button class="md-raised" ui-sref="contabil">Cancelar</md-button>
