@@ -6,7 +6,7 @@ angular.module('edit').config(function($stateProvider) {
 			//parent: 'contabil',
 			url: '/contabil/edit/:recordId',
 			controller: 'EditCtrl',
-			templateUrl: 'contabil/partial/create/create.html'
+			templateUrl: 'contabil/partial/edit/edit.html'
     });
     /* Add New States Above */
 

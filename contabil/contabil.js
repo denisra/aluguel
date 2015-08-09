@@ -1,4 +1,4 @@
-angular.module('contabil', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ngAnimate', 'create', 'firebase', 'contabil.mdTable','contabil.mdColresize']);
+angular.module('contabil', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ngAnimate', 'create', 'firebase', 'contabil.mdTable', 'contabil.mdColresize', 'edit']);
 
 angular.module('contabil').config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 

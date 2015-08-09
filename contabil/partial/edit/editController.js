@@ -33,5 +33,16 @@ angular.module('edit').controller('EditCtrl',function($scope, $firebaseArray, $r
 		});
 	}
 
+	$scope.updateRecord = function (record) {
+		console.log('update record: ', record);
+		var rec = ref.child(record.$id);
+		delete record.$id;
+		delete record.$priority;
+		console.log(record);
+		rec.set(record);
+		console.table(rec);
+	};
+
+
 	loadData();
 });

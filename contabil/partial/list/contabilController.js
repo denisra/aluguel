@@ -10,19 +10,6 @@ angular.module('contabil').controller('ContabilCtrl', ['$scope', '$firebaseObjec
 	var ref = new Firebase("https://alugueis.firebaseio.com/contabil");
 
 
-	function loadData () {
-		var data = $firebaseArray(ref);
-		data.$loaded()
-		.then (function (data) {
-			console.log('data loaded: ', data);
-			$scope.mycontent = data;
-			//console.log('scope data: ', $scope.mycontent);
-			$scope.total_amounts = get_totals(data);
-			console.log('total amounts: ', $scope.total_amounts);
-		});
-	}
-
-	
 
 	function get_totals(data) {
 		var tmp = [];
@@ -39,6 +26,20 @@ angular.module('contabil').controller('ContabilCtrl', ['$scope', '$firebaseObjec
 		return total;
 	}
 
+
+	function loadData () {
+		var data = $firebaseArray(ref);
+		data.$loaded()
+		.then (function (data) {
+			console.log('data loaded: ', data);
+			$scope.mycontent = data;
+			//console.log('scope data: ', $scope.mycontent);
+			$scope.total_amounts = get_totals(data);
+			console.log('total amounts: ', $scope.total_amounts);
+		});
+	}
+
+	
 
 	$scope.toggleSearch = false;
 	$scope.custom = {name: 'bold', start_date:'grey', end_date:'grey', due_date:'grey', total_due:'grey', total_received: 'grey'};
