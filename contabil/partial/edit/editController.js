@@ -1,9 +1,9 @@
-angular.module('edit').controller('EditCtrl',function($scope, $firebaseArray, $rootScope, $state, $stateParams){
+angular.module('edit').controller('EditCtrl',function($scope, $firebaseArray, $rootScope, $state, $stateParams, recordService){
 
 	var recordId = $stateParams.recordId;
 
-	$rootScope.showSearch = ($state.current.name === 'contabil');
-	console.log('contabil state: ', $state.current.name);
+	$rootScope.showSearch = recordService.getState();
+	console.log('contabil state: ', recordService.getState());
 
 	var ref = new Firebase("https://alugueis.firebaseio.com/contabil");
 

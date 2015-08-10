@@ -1,9 +1,9 @@
 angular.module('aluguel')
-.controller('appController', ['$scope', '$mdSidenav', '$log', '$state', '$rootScope', function($scope, $mdSidenav, $log, $state, $rootScope){
+.controller('appController', ['$scope', '$mdSidenav', '$log', '$state', '$rootScope', 'recordService', function($scope, $mdSidenav, $log, $state, $rootScope, recordService){
 	$scope.test = 'Test';
 	
-	$rootScope.showSearch = ($state.current.name === 'contabil');
-	console.log('contabil state: ', $state.current.name);
+	$rootScope.showSearch = recordService.getState();
+	console.log('contabil state: ', recordService.getState());
 
   $scope.close = function () {
     $mdSidenav('left').close()

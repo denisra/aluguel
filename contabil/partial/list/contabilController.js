@@ -1,45 +1,21 @@
-angular.module('contabil').controller('ContabilCtrl', ['$scope', '$firebaseObject', '$firebaseArray', '$state', '$rootScope', '$mdDialog', 
-	function($scope, $firebaseObject, $firebaseArray, $state, $rootScope, $mdDialog){
+angular.module('contabil').controller('ContabilCtrl', ['$scope', '$firebaseObject', '$firebaseArray', '$state', '$rootScope', '$mdDialog', 'recordService', 
+	function($scope, $firebaseObject, $firebaseArray, $state, $rootScope, $mdDialog, recordService){
 
 	//var tmp;
 	$scope.mycontent = [];
 
-	$rootScope.showSearch = ($state.current.name === 'contabil');
-	console.log('contabil state: ', $state.current.name);
+	$rootScope.showSearch = recordService.getState();
+	console.log('contabil state: ', recordService.getState());
 
 	var ref = new Firebase("https://alugueis.firebaseio.com/contabil");
 
-
-
-	function get_totals(data) {
-		var tmp = [];
-		_.map(data, function(obj) {tmp.push(obj);});
-		//console.log('tmp: ', tmp);
-		var t_due = 0;
-		var t_received = 0;		
-		for (var i in tmp) {
-			t_due = t_due + parseFloat(tmp[i].total_due);
-			t_received = t_received + parseFloat(tmp[i].total_received);
-		}
-		//console.log(t_due);
-		var total = {total_due: t_due, total_received: t_received};
-		return total;
-	}
-
-
-	function loadData () {
-		var data = $firebaseArray(ref);
-		data.$loaded()
-		.then (function (data) {
-			console.log('data loaded: ', data);
-			$scope.mycontent = data;
-			//console.log('scope data: ', $scope.mycontent);
-			$scope.total_amounts = get_totals(data);
-			console.log('total amounts: ', $scope.total_amounts);
+	var loadData = function() {
+		recordService.loadData().then( function(data){
+		$scope.mycontent = data;
+		$scope.total_amounts = recordService.get_totals(data);
 		});
-	}
+	};
 
-	
 
 	$scope.toggleSearch = false;
 	$scope.custom = {name: 'bold', start_date:'grey', end_date:'grey', due_date:'grey', total_due:'grey', total_received: 'grey'};
@@ -85,28 +61,6 @@ angular.module('contabil').controller('ContabilCtrl', ['$scope', '$firebaseObjec
 	// 	{name: 'Julie Wilde', start_date: '25-11-2015', end_date: '01-12-2015', total_due: '2100', total_received: '1000', due_date: '01-10-2015'},
 	// 	{name: 'Mama Brusqueta', start_date: '25-11-2015', end_date: '01-12-2015', total_due: '2100', total_received: '1000', due_date: '01-10-2015'}];
 
-	var onComplete = function(error) {
-	  if (error) {
-	    console.log('Synchronization failed');
-	  } else {
-	    console.log('Synchronization succeeded');
-	  }
-	};
-
-	function delRecord (record) {
-		console.log('delete record: ', record.$id);
-		 ref.child(record.$id).remove(function(error){
-	     if (error) {
-	     	console.log("Error:", error);
-	  	} else {
-	     	console.log("Removed successfully!");
-	     	loadData();
-	   	}
-	   });
-	}
-
-
-
 	$scope.deleteRecord = function (record) {
 	  $mdDialog.show(
 	    $mdDialog.confirm()
@@ -118,7 +72,8 @@ angular.module('contabil').controller('ContabilCtrl', ['$scope', '$firebaseObjec
 	      .cancel('Cancelar')
 	  ).then( function () {
 	  	console.log('Confirmado! ');
-	  	delRecord (record);
+	  	recordService.deleteRecord(record);
+	  	recordService.loadData();
 	  }, function () {
 	  	console.log('Cancelado!');
 	  });
@@ -128,13 +83,4 @@ angular.module('contabil').controller('ContabilCtrl', ['$scope', '$firebaseObjec
 	loadData();
 
 
- //  ref.on("value", function(snap) {
- //  	var tmp = [];
- //  	_.map(snap.val(), function(obj) {tmp.push(obj);});
-	// 	//$scope.mycontent = tmp;
-	// 	//$scope.$apply();
-	// 	$scope.total_amounts = get_totals(tmp);
-	// }, function (errorObject) {
-	// 		console.log("The read failed: " + errorObject.code);
-	// });
 }]);

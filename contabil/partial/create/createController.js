@@ -1,9 +1,10 @@
 angular.module('create')
-.controller('CreateCtrl', ['$scope', '$firebaseObject', '$mdDialog', '$rootScope', '$state', '$mdToast', function($scope, $firebaseObject, $mdDialog, $rootScope, $state, $mdToast){
+.controller('CreateCtrl', ['$scope', '$firebaseObject', '$mdDialog', '$rootScope', '$state', '$mdToast', 'recordService', 
+	function($scope, $firebaseObject, $mdDialog, $rootScope, $state, $mdToast, recordService){
 	//$scope.test = 'Test';
 	
-	$rootScope.showSearch = ($state.current.name === 'contabil');
-	console.log('contabil state: ', $state.current.name);
+	$rootScope.showSearch = recordService.getState();
+	console.log('contabil state: ', recordService.getState());
 
 	var ref = new Firebase("https://alugueis.firebaseio.com/contabil");
 	//var fb = $firebaseObject(ref);
