@@ -10,9 +10,10 @@ angular.module('contabil').controller('ContabilCtrl', ['$scope', '$firebaseObjec
 	var ref = new Firebase("https://alugueis.firebaseio.com/contabil");
 
 	var loadData = function() {
-		recordService.loadData().then( function(data){
-		$scope.mycontent = data;
-		$scope.total_amounts = recordService.get_totals(data);
+		recordService.loadData()
+		.then( function(data){
+			$scope.mycontent = data;
+			$scope.total_amounts = recordService.get_totals(data);
 		});
 	};
 

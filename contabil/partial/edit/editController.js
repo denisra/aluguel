@@ -20,16 +20,13 @@ angular.module('edit').controller('EditCtrl',function($scope, $firebaseArray, $r
 
 	}
 
-	function loadData () {
-		var data = $firebaseArray(ref);
-		data.$loaded()
-		.then (function (data) {
+	function getRecord () {
+		recordService.loadData()
+		.then( function(data){
 			console.log('param : ', recordId);
 			var record = _.find(data, function(obj) { return obj.$id === recordId;});
 			console.log('record : ', record);
 			convertDate(record);
-			//console.log('scope data: ', $scope.mycontent);
-			//console.log('total amounts: ', $scope.total_amounts);
 		});
 	}
 
@@ -44,5 +41,5 @@ angular.module('edit').controller('EditCtrl',function($scope, $firebaseArray, $r
 	};
 
 
-	loadData();
+	getRecord();
 });
