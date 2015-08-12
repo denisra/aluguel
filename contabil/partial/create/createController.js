@@ -6,34 +6,6 @@ angular.module('create')
 	$rootScope.showSearch = recordService.getState();
 	console.log('contabil state: ', recordService.getState());
 
-	var ref = new Firebase("https://alugueis.firebaseio.com/contabil");
-	//var fb = $firebaseObject(ref);
-
-	var onComplete = function(error) {
-	  if (error) {
-	    console.log('Synchronization failed');
-	  } else {
-	    console.log('Synchronization succeeded');
-
-    $mdToast.show(
-      $mdToast.simple()
-        .content('Contato criado com sucesso!')
-        .position('top right')
-        .hideDelay(3000)
-        //.parent(angular.element('.create-form .md-whiteframe-z3'))
-    );	    
-	    // $mdDialog.show(
-	    //   $mdDialog.alert()
-	    //     .parent(angular.element(document.body))
-	    //     .title('Sucesso')
-	    //     .content('Contato criado com sucesso!')
-	    //     .ariaLabel('Alert Dialog')
-	    //     .ok('OK')
-	    // );
-	    $scope.record = null;
-	  }
-	};
-
 	$scope.submitForm = function (record) {
 		console.log('record: ', record);
 		//this.record = record;
@@ -54,7 +26,15 @@ angular.module('create')
 		}
 		console.log('new record: ', tmp);
 		//console.log('new scope: ', $scope.record);
-		ref.push(tmp, onComplete);
+		//ref.push(tmp, onComplete);
+		recordService.createRecord(tmp)
+		.then(function (res) {
+			console.log(res);
+			recordService.showToast('Contato criado com sucesso!');
+			$scope.record = null;
+		}, function (error) {
+			console.log(error);
+		});
 	};
 
 
@@ -73,9 +53,14 @@ angular.module('create')
 
 
 	$scope.reset = function() {
-
 		contabil_list.forEach(function (contabil) {
-			ref.push(contabil, onComplete);
+			recordService.createRecord(contabil)
+			.then(function (res) {
+				console.log(res);
+				recordService.showToast('Contato criado com sucesso!');
+			}, function (error) {
+				console.log(error);
+			});
 		}); 
 	};    
 }]);

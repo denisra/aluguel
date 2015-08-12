@@ -1,4 +1,4 @@
-angular.module('contabil').service('recordService', ['$firebaseArray', '$q', '$state', function($firebaseArray, $q, $state) {
+angular.module('contabil').service('recordService', ['$firebaseArray', '$q', '$state', '$mdToast', function($firebaseArray, $q, $state, $mdToast) {
 
 	var _baseURL = "https://alugueis.firebaseio.com/contabil";
 	var _ref = new Firebase(_baseURL);
@@ -26,8 +26,10 @@ angular.module('contabil').service('recordService', ['$firebaseArray', '$q', '$s
 		var t_due = 0;
 		var t_received = 0;		
 		for (var i in tmp) {
-			t_due = t_due + parseFloat(tmp[i].total_due);
-			t_received = t_received + parseFloat(tmp[i].total_received);
+			if (_.isFinite(tmp[i].total_due) && _.isFinite(tmp[i].total_received)) {
+				t_due = t_due + parseFloat(tmp[i].total_due);
+				t_received = t_received + parseFloat(tmp[i].total_received);
+			}
 		}
 		//console.log(t_due);
 		var total = {total_due: t_due, total_received: t_received};
@@ -45,15 +47,27 @@ angular.module('contabil').service('recordService', ['$firebaseArray', '$q', '$s
 	  });
 	};
 
-	this.saveRecord = function (record) {
+	this.createRecord = function (record) {
 		var deferred = $q.defer();
 		_ref.push(record, function (error) {
 		  if (error) {
+		  	deferred.reject(error);
 		    console.log('Synchronization failed');
 		  } else {
+		  	deferred.resolve('Record saved!');
 		    console.log('Synchronization succeeded');
 			}
 		});
+		return deferred.promise;
 	};
 
+	this.showToast = function(msg) {
+    $mdToast.show(
+      $mdToast.simple()
+        .content(msg)
+        .position('top right')
+        .hideDelay(3000)
+        //.parent(angular.element('.create-form .md-whiteframe-z3'))
+    );	    
+	};
 }]);
