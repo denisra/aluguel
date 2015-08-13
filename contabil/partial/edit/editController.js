@@ -15,9 +15,7 @@ angular.module('edit').controller('EditCtrl',function($scope, $firebaseArray, $r
 				console.log('date obj: ', record[key]);
 			}
 		$scope.record = record;
-
 		});
-
 	}
 
 	function getRecord () {
@@ -36,7 +34,7 @@ angular.module('edit').controller('EditCtrl',function($scope, $firebaseArray, $r
 		delete record.$id;
 		delete record.$priority;
 		console.log(record);
-		rec.set(record);
+		rec.update(record);
 		console.table(rec);
 	};
 
