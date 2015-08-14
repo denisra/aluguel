@@ -5,8 +5,6 @@ angular.module('edit').controller('EditCtrl',function($scope, $firebaseArray, $r
 	$rootScope.showSearch = recordService.getState();
 	console.log('contabil state: ', recordService.getState());
 
-	var ref = new Firebase("https://alugueis.firebaseio.com/contabil");
-
 	function convertDate (record) {
 		_.mapObject(record, function(val, key) {
 			if (key.indexOf('date') > 0) {
@@ -30,12 +28,14 @@ angular.module('edit').controller('EditCtrl',function($scope, $firebaseArray, $r
 
 	$scope.updateRecord = function (record) {
 		console.log('update record: ', record);
-		var rec = ref.child(record.$id);
-		delete record.$id;
-		delete record.$priority;
-		console.log(record);
-		rec.update(record);
-		console.table(rec);
+		recordService.updateRecord(record)
+		.then(function (res) {
+			console.log(res);
+			recordService.showToast('Contato atualizado com sucesso!');
+			//$scope.record = null;
+		}, function (error) {
+			console.log(error);
+		});
 	};
 
 

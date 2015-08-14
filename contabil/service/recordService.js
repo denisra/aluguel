@@ -49,7 +49,31 @@ angular.module('contabil').service('recordService', ['$firebaseArray', '$q', '$s
 
 	this.createRecord = function (record) {
 		var deferred = $q.defer();
+		if (record.$id) {
+			delete record.$id;
+			delete record.$priority;
+		}
 		_ref.push(record, function (error) {
+		  if (error) {
+		  	deferred.reject(error);
+		    console.log('Synchronization failed');
+		  } else {
+		  	deferred.resolve('Record saved!');
+		    console.log('Synchronization succeeded');
+			}
+		});
+		return deferred.promise;
+	};
+
+	this.updateRecord = function (record) {
+		var deferred = $q.defer();
+		var _rec = _ref.child(record.$id);
+		console.log(_rec);
+		if (record.$id) {
+			delete record.$id;
+			delete record.$priority;
+		}
+		_rec.update(record, function (error) {
 		  if (error) {
 		  	deferred.reject(error);
 		    console.log('Synchronization failed');
