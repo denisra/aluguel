@@ -94,4 +94,29 @@ angular.module('contabil').service('recordService', ['$firebaseArray', '$q', '$s
         //.parent(angular.element('.create-form .md-whiteframe-z3'))
     );	    
 	};
+
+	this.dateToString = function(record) {
+		var _newRecord = angular.copy(record);
+		_.mapObject(_newRecord, function(val, key) {
+			if (key.indexOf('date') > 0) {
+				var d = new Date(_newRecord[key]);
+				_newRecord[key] = d.toISOString();
+				console.log('new obj: ', _newRecord[key]);
+			}
+		});
+		return _newRecord;
+	};
+
+	this.stringToDate = function(record) {
+		var _newRecord = angular.copy(record);
+		_.mapObject(_newRecord, function(val, key) {
+			if (key.indexOf('date') > 0) {
+				var d = new Date(_newRecord[key]);
+				_newRecord[key] = d;
+				console.log('new key: ', _newRecord[key]);
+			}
+		});
+		return _newRecord;
+	};
+
 }]);

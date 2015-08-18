@@ -1,32 +1,15 @@
 angular.module('create')
-.controller('CreateCtrl', ['$scope', '$firebaseObject', '$mdDialog', '$rootScope', '$state', '$mdToast', 'recordService', 
-	function($scope, $firebaseObject, $mdDialog, $rootScope, $state, $mdToast, recordService){
-	//$scope.test = 'Test';
+.controller('CreateCtrl', ['$scope', '$mdDialog', '$rootScope', '$state', '$mdToast', 'recordService', 
+	function($scope, $mdDialog, $rootScope, $state, $mdToast, recordService){
 	
 	$rootScope.showSearch = recordService.getState();
 	console.log('contabil state: ', recordService.getState());
 
 	$scope.submitForm = function (record) {
 		console.log('record: ', record);
-		//this.record = record;
-		var tmp = angular.copy(record);
-		for (var key in tmp) {
-		//_.mapObject(tmp, function(val, key) {
-			//console.log('val, key: ', val, key);
-			if (key.indexOf('date') > 0) {
-				//console.log('raw date: ', tmp[key], typeof(val));
-				var d = new Date(tmp[key]);
-				$scope.record[key] = d;
-				console.log('new scope before tmp: ', $scope.record);
-				//var t = moment(d.toLocaleDateString(), 'MM/DD/YYYY').format('YYYY-MM-DD');
-				console.log('to string: ', d.toISOString());
-				tmp[key] = d.toISOString();
-				console.log('new scope after tmp: ', $scope.record);
-			}
-		}
-		console.log('new record: ', tmp);
-		//console.log('new scope: ', $scope.record);
-		//ref.push(tmp, onComplete);
+		var tmp = recordService.dateToString(record);
+		$scope.record = recordService.stringToDate(record);
+
 		recordService.createRecord(tmp)
 		.then(function (res) {
 			console.log(res);

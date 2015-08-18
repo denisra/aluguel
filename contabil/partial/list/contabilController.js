@@ -1,12 +1,10 @@
-angular.module('contabil').controller('ContabilCtrl', ['$scope', '$firebaseObject', '$firebaseArray', '$state', '$rootScope', '$mdDialog', 'recordService', 
-	function($scope, $firebaseObject, $firebaseArray, $state, $rootScope, $mdDialog, recordService){
+angular.module('contabil').controller('ContabilCtrl', ['$scope', '$state', '$rootScope', '$mdDialog', 'recordService', 
+	function($scope, $state, $rootScope, $mdDialog, recordService){
 
 	$scope.mycontent = [];
 
 	$rootScope.showSearch = recordService.getState();
 	console.log('contabil state: ', recordService.getState());
-
-	var ref = new Firebase("https://alugueis.firebaseio.com/contabil");
 
 	var loadData = function() {
 		recordService.loadData()
@@ -57,7 +55,7 @@ angular.module('contabil').controller('ContabilCtrl', ['$scope', '$firebaseObjec
 	  ).then( function () {
 	  	console.log('Confirmado! ');
 	  	recordService.deleteRecord(record);
-	  	recordService.loadData();
+	  	loadData();
 	  }, function () {
 	  	console.log('Cancelado!');
 	  });
